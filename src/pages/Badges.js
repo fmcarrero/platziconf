@@ -3,13 +3,44 @@ import React from "react";
 import "./styles/Badge.css";
 import confLogo from "../images/badge-header.svg";
 import BadgesList from "../components/BadgesList";
-import data from "./data.json";
+import PageLoading from "../components/PageLoading";
+import PageError from "../components/PageError";
+
+import Api from "../api";
 import { Link } from "react-router-dom";
 class Badges extends React.Component {
-  state = {
-    data: data
+  constructor(props) {
+    super(props);
+    console.log("1.");
+    this.state = {
+      loading: true,
+      error: null,
+      data: undefined
+    };
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = async () => {
+    this.setState({ loading: true, error: null });
+    try {
+      const data = await Api.badges.list();
+      this.setState({ loading: false, data });
+    } catch (error) {
+      this.setState({ loading: false, error });
+    }
   };
+
   render() {
+    if (this.state.loading) {
+      return <PageLoading />;
+    }
+
+    if (this.state.error) {
+      return <PageError error={this.state.error} />;
+    }
     return (
       <React.Fragment>
         <div className="Badges">

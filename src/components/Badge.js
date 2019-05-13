@@ -4,8 +4,8 @@ import "./styles/Badge.css";
 import confLogo from "../images/badge-header.svg";
 
 class Badge extends React.Component {
+
   render() {
- 
     return (
       <div className="Badge">
         <div className="Badge__header">
@@ -26,7 +26,7 @@ class Badge extends React.Component {
           <h3>{this.props.jobTitle}</h3>
           <div> {this.props.twitter}</div>
         </div>
-        <div className="Badge__footer" >#platziconf</div>
+        <div className="Badge__footer">#platziconf</div>
       </div>
     );
   }
